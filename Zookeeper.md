@@ -290,6 +290,37 @@ ZooKeeper 所管理的 watch 可以分为两类：
 
   - `vi runRemoteCmd.sh`
 
+    ```shell
+    #!/bin/bash
+    
+    if [ $# -lt 2 ]
+    then
+      echo "Usage: ./runRemoteCmd.sh Command MachineTag"
+      echo "Usage: ./runRemoteCmd.sh Command MachineTag confFile"
+      exit
+    fi
+    
+    cmd=$1
+    tag=$2
+    if [ 'a'$3'a' == 'aa' ]
+    then
+      confFile=/home/hadoop/tools/deploy.conf
+    else
+      confFile=$3
+    fi
+    
+    if [ -f $confFile ]
+    then
+      for server in `cat $confFile | grep -v '^#'|grep ','$tag','|awk -F',' '{print $1}'`
+      do
+        echo "*************************server******************************"
+        ssh $server "source ~/.bashrc; $cmd"
+      done
+    else
+      echo "Error: Please assign config file or run deploy.sh command with deploy.conf in same directory"
+    fi
+    ```
+
 - 给脚本添加执行权限：（文件名会变色）
 
   - `chmod u+x deploy.sh`
@@ -305,43 +336,92 @@ ZooKeeper 所管理的 watch 可以分为两类：
 
   保存环境变量：`source ~/.bashrc`
 
-- 尝试使用`deploy.sh`脚本：分发文件`1.txt`至slave节点（即 hadoop02、hadoop03）
+- 使用`deploy.sh`脚本：分发文件`1.txt`至slave节点（即 hadoop02、hadoop03）
 
   `deploy.sh ~/1.txt /home/hadoop/ slave`
 
   <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/011.jpg" alt="image"  />
 
-  批量创建各个节点相应目录
+- 使用`runRemoteCmd.sh`脚本：批量创建各个节点相应目录
 
-  runRemoteCmd.sh "mkdir /home/hadoop/app" all
+  `runRemoteCmd.sh "mkdir /home/hadoop/app" all`
 
-  runRemoteCmd.sh "mkdir /home/hadoop/data" all
+  `runRemoteCmd.sh "mkdir /home/hadoop/data" all`
 
-
-
-
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/012.jpg" alt="image"  />
 
 
 
 ### 4.3 JDK 安装
 
+> Zookeeper 是由 Java 编写，运行在 JVM，所以需要提前安装 JDK 运行环境，本项目我们选择jdk8
+>
+> 使用 hadoop 用户执行如下步骤
+
+#### 下载、解压 JDK
+
+- 官网下载`jdk-8u51-linux-x64.tar.gz`，并用 Xftp 上传至`/home/hadoop/app`
+- 在`/home/hadoop/app`目录下：`tar -zxvf jdk-8u51-linux-x64.tar.gz`
+- 删除安装包：`sudo rm -rf jdk-8u51-linux-x64.tar.gz`
+- 创建软链接：`ln -s jdk1.8.0_51 jdk`
+
+#### 配置环境变量
+
+> 本项目使用方式二
+
+- 方式一：修改/etc/profile 文件
+
+  如果你的计算机仅仅作为开发使用时推荐使用这种方法，因为所有用户的 shell 都有权使用这些环境变量，但是可能会给系统带来安全性问题。 这里是针对所有的用户的，所有的 shell，`vi /etc/profile`
+
+  ```
+  JAVA_HOME=/home/hadoop/app/jdk
+  CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+  PATH=$JAVA_HOME/bin:/home/hadoop/tools:$PATH
+  export JAVA_HOME CLASSPATH PATH
+  ```
+
+- 方式二：修改 .bashrc 文件
+
+  这种方法更为安全，它可以把使用这些环境变量的权限控制到用户级别，对某一个特定的用户，如果你需要给某个用户权限使用这些环境变量，你只需要修改其个人用户主目录下的.bashrc 文件就可以了`vi ~/.bashrc`
+
+  ```
+  ##已包含了之前为脚本配置的环境变量，可直接覆盖
+  JAVA_HOME=/home/hadoop/app/jdk
+  CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+  PATH=$JAVA_HOME/bin:/home/hadoop/tools:$PATH
+  export JAVA_HOME CLASSPATH PATH
+  ```
+
+  使配置文件生效：`source ~/.bashrc `
+
+  检查 JDK 是否安装成功：`java -version `
+
+#### JDK 安装包同步到其他节点
+
+通过脚本命令：`deploy.sh jdk1.8.0_51 /home/hadoop/app/ slave`将 jdk安装包同步到其他节点，然后重复上述步骤完成各个节点的 jdk 安装
+
+
+
+### 4.4 Zookeeper 安装
+
+> 本项目统一选择 cdh5.10.0 版本，包括后面 hadoop 也下载这个版本
+>
+> - Apache 版本下载地址：https://archive.apache.org/dist/
+>
+> - CDH 版本下载地址：http://archive-primary.cloudera.com/cdh5/cdh/5/
+>
+> 使用 hadoop 用户执行如下步骤
+
+#### 下载、解压 Zookeeper 
+
+- 官网下载：`zookeeper-3.4.5-cdh5.10.0.tar.gz`，用 Xftp 上传至`/home/hadoop/app`
+- 在`/home/hadoop/app`目录下：`tar -zxvf zookeeper-3.4.5-cdh5.10.0.tar.gz`
+- 删除安装包：`sudo rm -rf zookeeper-3.4.5-cdh5.10.0.tar.gz`
+- 创建软链接：`ln -s zookeeper-3.4.5-cdh5.10.0 zookeeper`
+
+#### 修改 zoo.cfg 配置文件
+
 - 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
