@@ -165,9 +165,9 @@ centos6.5镜像官网下载地址：https://vault.centos.org/6.5/isos/x86_64/Cen
 
 
 
-## 3 Zookeeper 集群安装部署
+## 3 Zookeeper 概述及其部署
 
-### 
+参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Zookeeper.md
 
 
 
