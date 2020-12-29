@@ -232,6 +232,8 @@ ZooKeeper 所管理的 watch 可以分为两类：
 
 #### 集群脚本准备
 
+> 脚本只需在 hadoop01 上配置，之后对它的运用默认是在 hadoop01 上，其作用就是辅助 hadoop01 同步操作到 hadoop02、hadoop03
+
 - 创建脚本存放目录：`mkdir /home/hadoop/tools`
 
 - 编写脚本配置文件和分发文件：`cd ~/tools`
@@ -421,13 +423,43 @@ ZooKeeper 所管理的 watch 可以分为两类：
 
 #### 修改 zoo.cfg 配置文件
 
-- 
+> zoo.cfg 配置文件可在我的[github项目仓库](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/Zookeeper/zoo.cfg)克隆
 
+- 用Xftp将`zoo.cfg`上传到`/home/hadoop/app/zookeeper/conf`
 
+#### 安装目录同步到其他节点
 
+- 安装目录分发到其他节点：`deploy.sh zookeeper-3.4.5-cdh5.10.0/ /home/hadoop/app/ slave`
 
+- 并分别创建软连接：`ln -s zookeeper-3.4.5-cdh5.10.0 zookeeper`
 
+#### 创建规划的目录
 
+- 在 hadoop01 用`runRemoteCmd.sh`脚本同步创建目录：
 
+  `runRemoteCmd.sh "mkdir -p /home/hadoop/data/zookeeper/zkdata" all`
 
+  `runRemoteCmd.sh "mkdir -p /home/hadoop/data/zookeeper/zkdatalog" all`
+
+#### 修改每个节点服务编号
+
+分别到各个节点，进入`/home/hadoop/data/zookeeper/zkdata`目录，创建文件`myid`，里面的内容分别写入一个编号：1、2、3
+
+#### 测试运行
+
+- 启动 Zookeeper：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/013.jpg" alt="image"  />
+
+- 查看 Zookeeper 进程：`runRemoteCmd.sh "jps" all`
+
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/014.jpg" alt="image"  />
+
+- 查看 Zookeeper 状态：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh status" all`
+
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/015.jpg" alt="image"  />
+
+#### 查看并操作 znode
+
+- `bin/zkCli.sh`
 
