@@ -169,6 +169,20 @@ centos6.5镜像官网下载地址：https://vault.centos.org/6.5/isos/x86_64/Cen
 
 参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Zookeeper.md
 
+## 4 HDFS 概述及其部署
+
+参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/HDFS.md
+
+## 5 YARN 概述及其部署
+
+参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/YARN.md
+
+
+
+
+
+
+
 
 
 
