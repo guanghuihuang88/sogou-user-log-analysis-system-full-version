@@ -163,21 +163,29 @@ centos6.5镜像官网下载地址：https://vault.centos.org/6.5/isos/x86_64/Cen
 
   <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/004.jpg" alt="image"  />
 
-
-
 ## 3 Zookeeper 概述及其部署
 
-参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Zookeeper.md
+参见文档[Zookeeper](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Zookeeper.md)，可直接看第4节部署
 
 ## 4 HDFS 概述及其部署
 
-参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/HDFS.md
+参见文档[HDFS](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/HDFS.md)，可直接看第4节部署
 
 ## 5 YARN 概述及其部署
 
-参见文档：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/YARN.md
+参见文档[YARN](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/YARN.md)，可直接看第5节部署
 
+## 6 MapReduce 概述
 
+参见文档[MapReduce](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/MapReduce.md)
+
+## 7 Eclipse 与 MapReduce 集成开发 (利用Maven)
+
+参见文档[Eclipse 与 MapReduce 集成开发](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Eclipse%E4%B8%8EMapReduce%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91.md)
+
+## 8 HBase 概述及其部署
+
+参见文档[HBase](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/HBase.md)，可直接看第4节部署
 
 
 
