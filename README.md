@@ -187,6 +187,10 @@ centos6.5镜像官网下载地址：https://vault.centos.org/6.5/isos/x86_64/Cen
 
 参见文档[HBase](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/HBase.md)，可直接看第4节部署
 
+## 9 Kafka 概述及其部署
+
+参见文档[Kafka](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/Kafka.md)，可直接看第4节部署
+
 
 
 
