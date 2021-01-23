@@ -50,7 +50,7 @@
   ```properties
   # The configuration file needs to define the sources, 
   # the channels and the sinks.
-# Sources, channels and sinks are defined per agent, 
+  # Sources, channels and sinks are defined per agent, 
   # in this case called 'agent'
   
   agent.sources = execSource
@@ -73,12 +73,15 @@
   agent.sinks.kafkaSink.channel = memoryChannel
   ```
   
-
 - 启动 Zookeeper 集群：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
 - 每个节点分别启动 Kafka 集群：`bin/kafka-server-start.sh config/server.properties`
+
 - hadoop02 打开 Kafka console 消费者：`bin/kafka-console-consumer.sh --zookeeper localhost:2181/kafka1.0 --topic sogoulogs`
 
 - 启动 hadoop01 节点 flume 服务：`bin/flume-ng agent -n agent -c conf -f conf/flume-kafka.properties -Dflume.root.logger=INFO,console`
+
+- 若成功，则会在 hadoop02 节点消费者控制台看到数据
 
   <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/093.jpg" alt="image" style="zoom:;" />
 
@@ -90,31 +93,31 @@
 
 - 在 hadoop02，hadoop03 修改之前的配置文件`flume-conf.properties`：
 
-  ```properties
-  # The configuration file needs to define the sources, 
-  # the channels and the sinks.
-  # Sources, channels and sinks are defined per agent, 
-  # in this case called 'agent'
-  
-  agent.sources = execSource
-  agent.channels = memoryChannel
-  agent.sinks = avroSink
-  
-  # For each one of the sources, the type is defined
-  agent.sources.execSource.type = exec
-  agent.sources.execSource.channels = memoryChannel
-  agent.sources.execSource.command = tail -F /home/hadoop/data/flume/logs/sogoulogs.log
-  
-  # Each channel's type is defined.
-  agent.channels.memoryChannel.type = memory
-  agent.channels.memoryChannel.capacity = 100
-  
-  # Each sink's type must be defined
-  agent.sinks.avroSink.type = avro
-  agent.sinks.avroSink.channel = memoryChannel
-  agent.sinks.avroSink.hostname = hadoop01
-  agent.sinks.avroSink.port = 1234
-  ```
+   ```properties
+    # The configuration file needs to define the sources, 
+    # the channels and the sinks.
+    # Sources, channels and sinks are defined per agent, 
+    # in this case called 'agent'
+    
+    agent.sources = execSource
+    agent.channels = memoryChannel
+    agent.sinks = avroSink
+    
+    # For each one of the sources, the type is defined
+    agent.sources.execSource.type = exec
+    agent.sources.execSource.channels = memoryChannel
+    agent.sources.execSource.command = tail -F /home/hadoop/data/flume/logs/sogoulogs.log
+    
+    # Each channel's type is defined.
+    agent.channels.memoryChannel.type = memory
+    agent.channels.memoryChannel.capacity = 100
+    
+    # Each sink's type must be defined
+    agent.sinks.avroSink.type = avro
+    agent.sinks.avroSink.channel = memoryChannel
+    agent.sinks.avroSink.hostname = hadoop01
+    agent.sinks.avroSink.port = 1234
+   ```
 
 - 在 hadoop01 修改之前的配置文件`flume-conf2.properties`：
 
@@ -146,17 +149,23 @@
   ```
 
 - 启动 Zookeeper 集群：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
 - 每个节点分别启动 Kafka 集群：`bin/kafka-server-start.sh config/server.properties`
 
 - 任意选择 hadoop02 节点打开 Kafka console 消费者：`bin/kafka-console-consumer.sh --zookeeper localhost:2181/kafka1.0 --topic sogoulogs`
+
 - 启动 hadoop01 节点 flume 服务
   - 启动 hadoop01 节点服务，监听并接受 hadoop02，hadoop03 采集过来的数据
   - `bin/flume-ng agent -n agent -c conf -f conf/flume-conf2.properties -Dflume.root.logger=INFO,console`
+
 - 启动采集节点 flume 服务
   - 分别启动 hadoop02，hadoop03 节点 flume 服务，采集搜狗日志数据并发送给 hadoop01 节点的 flume
   - `bin/flume-ng agent -n agent -c conf -f conf/flume-conf.properties -Dflume.root.logger=INFO,console`
   - `bin/flume-ng agent -n agent -c conf -f conf/flume-conf.properties -Dflume.root.logger=INFO,console`
+
 - 若成功，则会在 hadoop02 节点消费者控制台看到数据
+
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/093.jpg" alt="image" style="zoom:;" />
 
 
 
