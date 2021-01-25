@@ -24,8 +24,6 @@ Channel 选择器是决定 Source 接收的一个特定事件写入哪些 Channe
 
 > Flume Channel 选择器使用复制选择器，将数据分别完整发送至 kafkaChannel 和 hbaseChannel
 
-<img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/104.jpg" alt="image" style="zoom: 33%;" />
-
 - 启动 Zookeeper：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
 
 - 注意集群时钟必须同步：
@@ -55,6 +53,8 @@ Channel 选择器是决定 Source 接收的一个特定事件写入哪些 Channe
 ### Flume 单节点集成 Kafka 和 HBase
 
 > 相关配置文件可在我的github项目仓库克隆：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/tree/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6
+
+<img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/104.jpg" alt="image" style="zoom: 33%;" />
 
 - 创建配置文件`flume-kafka-hbase-single.properties`：
 
@@ -129,6 +129,8 @@ Channel 选择器是决定 Source 接收的一个特定事件写入哪些 Channe
 ### Flume 集群集成 Kafka 和 HBase
 
 > 相关配置文件可在我的github项目仓库克隆：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/tree/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6
+
+<img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/106.jpg" alt="image" style="zoom: 33%;" />
 
 - hadoop01 创建配置文件`flume-kafka-hbase-multi.properties`：
 
