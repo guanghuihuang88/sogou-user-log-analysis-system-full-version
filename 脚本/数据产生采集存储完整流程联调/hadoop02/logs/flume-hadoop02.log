@@ -1,0 +1,10 @@
+Info: Including Hive libraries found via () for Hive access
++ exec /home/hadoop/app/jdk/bin/java -Xmx20m -cp '/home/hadoop/shell/conf:/home/hadoop/app/apache-flume-1.7.0-bin/lib/*:/lib/*' -Djava.library.path= org.apache.flume.node.Application -f /home/hadoop/shell/conf/flume-conf.properties -n agent
+log4j:WARN No appenders could be found for logger (org.apache.flume.lifecycle.LifecycleSupervisor).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Info: Including Hive libraries found via () for Hive access
++ exec /home/hadoop/app/jdk/bin/java -Xmx20m -cp '/home/hadoop/shell/conf:/home/hadoop/app/apache-flume-1.7.0-bin/lib/*:/lib/*' -Djava.library.path= org.apache.flume.node.Application -f /home/hadoop/shell/conf/flume-conf.properties -n agent
+log4j:WARN No appenders could be found for logger (org.apache.flume.lifecycle.LifecycleSupervisor).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
