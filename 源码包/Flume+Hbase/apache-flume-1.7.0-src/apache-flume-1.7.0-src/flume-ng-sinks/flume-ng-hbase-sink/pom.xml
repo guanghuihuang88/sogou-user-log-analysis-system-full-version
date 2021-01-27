@@ -30,7 +30,7 @@
     </plugins>
   </build>
   <dependencies>
-<dependency>
+	<dependency>
 	    <groupId>jdk.tools</groupId>
 	    <artifactId>jdk.tools</artifactId>
 	    <version>1.6</version>

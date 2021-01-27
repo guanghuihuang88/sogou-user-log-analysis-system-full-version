@@ -52,7 +52,7 @@ public class SimpleRowKeyGenerator {
    * @throws UnsupportedEncodingException
    */
   public static byte[] getDsjRowKey(String uid,String logtime) throws UnsupportedEncodingException {
-	    return (uid + logtime + String.valueOf(System.currentTimeMillis())).getBytes("UTF8");
-	  }
+    return (uid + logtime + String.valueOf(System.currentTimeMillis())).getBytes("UTF8");
+  }
   
 }
