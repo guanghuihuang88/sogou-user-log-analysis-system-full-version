@@ -206,6 +206,8 @@ Hive 将元数据存储在 RDBMS 中，一般常用 MySQL 和 Derby。默认情�
 
 - 启动 YARN：`sbin/start-yarn.sh`
 
+- 启动 MySQL：`sudo service mysqld start`
+
 - 启动 Hive：
 
   - 如果单独配置的 Metastore，得先启动 metastore 服务：`bin/hive --service metastore`

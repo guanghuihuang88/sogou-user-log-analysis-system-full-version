@@ -1,6 +1,6 @@
 # Kafka 概述及其部属
 
-## 1 Kafka 概述
+## 1 Kafka 消息系统
 
 > kafka 是 LinkedIn 开发并开源的一个分布式MQ系统，现在是Apache的一个孵化项目。在它的主页描述 kafka 为一个高吞吐量的分布式（能将消息分散到不同的节点上）MQ。Kafka 仅仅由7000行 Scala 编写，据了解，Kafka 每秒可以生产约25万消息（50MB），每秒处理55万消息（110 MB）。目前越来越多的开源分布式处理系统如 Cloudera、Apache Storm、Spark 都支持与 Kafka 集成
 
@@ -192,9 +192,14 @@ Kafka 版本下载：
 
 ### 集群启动/关闭
 
-> 启动 Zookeeper 集群：
->
-> `runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+- 启动 Zookeeper 集群：
+
+  `runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
+- 注意集群时钟必须同步：
+
+  同步时间：`sudo ntpdate pool.ntp.org`
+  查看时间：`date`
 
 需要分别在每个节点上启动：
 

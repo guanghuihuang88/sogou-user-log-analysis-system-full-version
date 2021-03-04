@@ -1,6 +1,6 @@
 # HDFS 概述及其部属
 
-## 1 HDFS 概述
+## 1 HDFS 分布式文件系统
 
 > HDFS (Hadoop Distributed File System) 是 Hadoop 项目的核心子项目，是分布式计算中数据存储管理的基础，是基于流数据模式访问和处理超大文件的需求而开发的，可以运行于廉价的商用服务器上
 >
@@ -348,3 +348,9 @@ QJM 可以认为是包含一些 JournalNode 的集群，JournalNode 运行在不
 
   <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/029.jpg" alt="image"  />
 
+#### 常用命令
+
+- 创建目录：`bin/hdfs dfs -mkdir /test`
+- 查看目录：`bin/hdfs dfs -ls /`
+- 上传文件到hdfs：`bin/hdfs dfs -put wc.txt /test`
+- 查看文件：`bin/hdfs dfs -cat /test/wc.txt`

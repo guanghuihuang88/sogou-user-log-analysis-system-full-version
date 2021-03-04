@@ -510,8 +510,12 @@
   - 使用之前编写好的 flume 启动脚本：`start_flume_hadoop02.sh`和`start_flume_hadoop03.sh`
 
 - 先在聚合节点 hadoop01 启动 flume：`~/shell/bin`路径执行`./start_data_flume_kafka.sh `
+
 - 然后在eclipse中运行 `kafka_sparkStreaming.scala` 代码，观察到 sparkStreeaming 开始持续监听
-- 最后在采集节点 hadoop02，hadoop03 启动 flume：`~/shell/bin`路径执行`start_flume_hadoop02.sh`和`start_flume_hadoop03.sh`
+
+- 接着在采集节点 hadoop02，hadoop03 启动 flume：`~/shell/bin`路径执行`start_flume_hadoop02.sh`和`start_flume_hadoop03.sh`
+
+- 最后，在采集节点 hadoop02，hadoop03 启动模拟数据脚本：`~/shell/bin/sogoulogs.sh`
 
 - eclipse 控制台中能观察到有计算结果出现
 

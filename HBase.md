@@ -1,6 +1,6 @@
 # HBase 概述及其部署
 
-## 1 HBase 简介
+## 1 HBase 数据库
 
 > HBase 是构建在 HDFS 之上的分布式列存储数据库，是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用 HBase 技术可以在廉价 PC Server 上搭建起大规模结构化存储集群
 > HBase 是 Google Bigtable 的开源实现，类似 Google Bigtable 利用 GFS 作为其文件存储系统，Google 运行 MapReduce 来处理 Bigtable 中的海量数据，HBase 同样利用 Hadoop MapReduce 来处理 HBase 中的海量数据；Google Bigtable 利用 Chubby 作为协同服务，HBase 利用 Zookeeper 作为对应
@@ -366,6 +366,11 @@ HBase 有两种运行模式：单机模式和分布式模式
 
 - 启动 Zookeeper（集群依赖 Zookeeper 集群）
   `runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
+- 注意集群时钟必须同步：
+
+  同步时间：`sudo ntpdate pool.ntp.org`
+  查看时间：`date`
 
 - 启动 hdfs（Hbase 数据都存储在 hdfs 上，依赖 hdfs 集群）
 

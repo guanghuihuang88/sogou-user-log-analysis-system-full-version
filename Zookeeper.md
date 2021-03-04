@@ -1,6 +1,6 @@
-# Zookeeper
+# Zookeeper 概述及其部属
 
-## 1 Zookeeper概述
+## 1 Zookeeper 分布式协调服务
 
 ZooKeeper 是一种为分布式应用所设计的高可用、高性能且一致的开源协调服务
 
@@ -409,10 +409,11 @@ ZooKeeper 所管理的 watch 可以分为两类：
 > 本项目统一选择 cdh5.10.0 版本，包括后面 hadoop 也下载这个版本
 >
 > - Apache 版本下载地址：https://archive.apache.org/dist/
->
 > - CDH 版本下载地址：http://archive-primary.cloudera.com/cdh5/cdh/5/
 >
-> 使用 hadoop 用户执行如下步骤
+> 相关配置文件可在我的github项目仓库克隆：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/tree/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6
+>
+> 使用 hadoop 用户执行如下步骤：
 
 #### 下载、解压 Zookeeper 
 
@@ -422,8 +423,6 @@ ZooKeeper 所管理的 watch 可以分为两类：
 - 创建软链接：`ln -s zookeeper-3.4.5-cdh5.10.0 zookeeper`
 
 #### 修改 zoo.cfg 配置文件
-
-> zoo.cfg 配置文件可在我的[github项目仓库](https://github.com/guanghuihuang88/sogou-user-log-analysis-system/blob/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/Zookeeper/zoo.cfg)克隆
 
 - 用Xftp将`zoo.cfg`上传到`/home/hadoop/app/zookeeper/conf`
 
@@ -462,4 +461,8 @@ ZooKeeper 所管理的 watch 可以分为两类：
 #### 查看并操作 znode
 
 - `bin/zkCli.sh`
+
+  可以看到其他部署过的框架的元数据
+
+  <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/084.jpg" alt="image" style="zoom:;" />
 

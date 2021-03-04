@@ -32,9 +32,9 @@
 
 ## 3 Flume+Kafka 集成配置
 
-> 相关配置文件可在我的github项目仓库克隆：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/tree/master/%E6%95%B0%E6%8D%AE%E9%9B%86
+> 相关配置文件可在我的github项目仓库克隆：https://github.com/guanghuihuang88/sogou-user-log-analysis-system/tree/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6
 >
-> 按照官方文档中配置 Kafka Sink：User Guide —> Configuration —> Flume Sources —> Kafka Sink
+> 按照官方文档中配置 Kafka Sink：User Guide —> Configuration —> Flume Sink —> Kafka Sink
 
 - 在 Kafka 创建 topic：sogoulogs：`bin/kafka-topics.sh --zookeeper localhost:2181/kafka1.0 --create --topic sogoulogs --replication-factor 3 --partitions 3`
 - 查看是否创建成功：`bin/kafka-topics.sh --zookeeper localhost:2181/kafka1.0 --list`
@@ -74,6 +74,11 @@
   ```
   
 - 启动 Zookeeper 集群：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
+- 注意集群时钟必须同步：
+
+  同步时间：`sudo ntpdate pool.ntp.org`
+  查看时间：`date`
 
 - 每个节点分别启动 Kafka 集群：`bin/kafka-server-start.sh config/server.properties`
 
@@ -149,6 +154,11 @@
   ```
 
 - 启动 Zookeeper 集群：`runRemoteCmd.sh "/home/hadoop/app/zookeeper/bin/zkServer.sh start" all`
+
+- 注意集群时钟必须同步：
+
+   同步时间：`sudo ntpdate pool.ntp.org`
+   查看时间：`date`
 
 - 每个节点分别启动 Kafka 集群：`bin/kafka-server-start.sh config/server.properties`
 

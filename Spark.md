@@ -214,21 +214,154 @@
 
 ### 开发 Scala 版本 Wordcount
 
-（暂略吧）
+- 在 eclipse 中安装Scala 插件：help->eclipse marketplace->搜索scala->install
 
+- 新建 Maven project 参考我的另一篇博客：[Eclipse与MapReduce集成开发](http://www.guanghuihuang.cn/2021/01/20/%E5%A4%A7%E6%95%B0%E6%8D%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/%E3%80%90%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F%E3%80%91(%E5%85%AD)%EF%BC%9AEclipse%E4%B8%8EMapReduce%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91/)
 
+  - Group Id：`com.dsj.spark`
+  - Artifact Id：`testSpark`
 
+  - Package：`com.dsj.spark.testSpark`
 
+- 修改项目 jdk 为1.8
+- 为项目增加 scala 特性：右击项目 -> configure -> add scala nature
+- 新建 scala 目录：右击项目-> new -> source folder：`src/main/scala`
 
+- 在`src/main/scala`目录下新建包：new -> package：`com.dsj.spark.testSpark`
 
+- 在`com.dsj.spark.testSpark`包中新建 scala 类：new -> others -> scala object：`Test`
 
+- 通过 maven 引入 spark 依赖包
 
+  ```xml
+  <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
+  <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.11</artifactId>
+      <version>2.3.0</version>
+  </dependency>
+  ```
 
+- 添加 scala 库
 
+  ```xml
+  <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+  </dependency>
+  ```
 
+- 添加 scala 版本
 
+  ```xml
+  <properties>
+  	<scala.version>2.11.8</scala.version>
+  </properties>
+  ```
 
+- 添加打包插件
 
+  ```xml
+  <build>
+  		<sourceDirectory>src/main/scala</sourceDirectory>
+  		<testSourceDirectory>src/test/scala</testSourceDirectory>
+  		<plugins>
+  			<plugin>
+  				<groupId>org.scala-tools</groupId>
+  				<artifactId>maven-scala-plugin</artifactId>
+  				<executions>
+  					<execution>
+  						<goals>
+  							<goal>compile</goal>
+  							<goal>testCompile</goal>
+  						</goals>
+  					</execution>
+  				</executions>
+  				<configuration>
+  					<scalaVersion>${scala.version}</scalaVersion>
+  					<args>
+  						<arg>-target:jvm-1.5</arg>
+  					</args>
+  				</configuration>
+  			</plugin>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-eclipse-plugin</artifactId>
+  				<configuration>
+  					<downloadSources>true</downloadSources>
+  					<buildcommands>
+  						<buildcommand>ch.epfl.lamp.sdt.core.scalabuilder</buildcommand>
+  					</buildcommands>
+  					<additionalProjectnatures>
+  						<projectnature>ch.epfl.lamp.sdt.core.scalanature</projectnature>
+  					</additionalProjectnatures>
+  					<classpathContainers>
+  						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+  						<classpathContainer>ch.epfl.lamp.sdt.launching.SCALA_CONTAINER</classpathContainer>
+  					</classpathContainers>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</build>
+  	<reporting>
+  		<plugins>
+  			<plugin>
+  				<groupId>org.scala-tools</groupId>
+  				<artifactId>maven-scala-plugin</artifactId>
+  				<configuration>
+  					<scalaVersion>${scala.version}</scalaVersion>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</reporting>
+  ```
+
+- 测试项目打包，进入项目根目录cmd：`mvn clean package`
+
+- scala 版本 Wordcount
+
+  ```scala
+  package com.dsj.spark.testSpark
+  
+  import org.apache.spark.SparkContext
+  import org.apache.spark.SparkConf
+  
+  object MyScalaWordCout {
+    def main(args: Array[String]): Unit = {
+      if(args.length<2){
+        System.err.println("Usage:MyScalaWordCout <input> <output>")
+        System.exit(1)
+      }
+      
+      //输入路径
+      val input = args(0)
+      //输出路径
+      val output = args(1)
+      
+      val conf = new SparkConf().setAppName("MyScalaWordCout")
+      
+      val sc = new SparkContext(conf)
+      
+      //读取数据
+      val lines = sc.textFile(input)
+      
+      val resultRDD = lines.flatMap(_.split("\\s+")).map((_,1)).reduceByKey(_+_)
+      
+      //保存结果
+      resultRDD.saveAsTextFile(output)
+      
+      sc.stop()
+      
+    }
+  }
+  ```
+
+- 通过 maven 对项目打包（也可以使用 export 导出方式）上传到spark节点（hadoop01）
+
+- 通过 spark-submit 提交 spark Wordcount 作业：`bin/spark-submit --master local[2] --class 类名 包名 输入路径 输出路径`
+
+  
 
 
 

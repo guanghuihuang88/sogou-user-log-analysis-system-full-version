@@ -1,6 +1,6 @@
 # YARN 概述及其部属
 
-## 1 YARN 概述
+## 1 YARN 资源管理系统
 
 > YARN 是 Hadoop2.x 版本新引入的资源管理系统，直接从 MR1 演化而来。Apache Hadoop YARN （Yet Another Resource Negotiator，另一种资源协调者）是一种新的 Hadoop 资源管理器，它是一个通用资源管理系统，可为上层应用提供统一的资源管理和调度，它的引入为集群在利用率、资源统一管理和数据共享等方面带来了巨大好处
 
@@ -262,5 +262,10 @@ YARN 的出现，使得多个计算框架运行在一个集群当中
 
 <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/032.jpg" alt="image"  />
 
+#### 常用命令
 
+- 运行自带的 wordcount 程序：`bin/hadoop jar share/hadoop/mapreduce2/hadoop-mapreduce-examples-2.6.0-cdh5.10.0.jar
+  wordcount /test/wc.txt /test/out`
+
+  
 

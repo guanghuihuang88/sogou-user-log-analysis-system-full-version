@@ -6,7 +6,7 @@
 
 - 注意集群时钟必须同步：
 
-  - 同步时间：`ntpdate pool.ntp.org`
+  - 同步时间：`sudo ntpdate pool.ntp.org`
   - 查看时间：`date`
 
 - 启动 HDFS：`sbin/start-dfs.sh`
@@ -234,7 +234,7 @@
 
   <img src="https://hexo.oss-cn-beijing.aliyuncs.com/%E9%A1%B9%E7%9B%AE/%E6%90%9C%E7%8B%97%E7%94%A8%E6%88%B7%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%B3%BB%E7%BB%9F/098.jpg" alt="image"  />
 
-- 复制一条 sogoulogs 的数据到`test.log`文件
+- 随便复制一条 `sogoulogs.log` 的数据到`test.log`文件
 
   `echo “00:09:40,2739469928397069,[汶川震后十分钟],8,29,nv.qianlong.com/33530/2008/05/16/2400@4444820.htm” >> test.log`
 

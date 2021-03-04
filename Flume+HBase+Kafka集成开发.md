@@ -28,7 +28,7 @@ Channel 选择器是决定 Source 接收的一个特定事件写入哪些 Channe
 
 - 注意集群时钟必须同步：
 
-  同步时间：`ntpdate pool.ntp.org`
+  同步时间：`sudo ntpdate pool.ntp.org`
   查看时间：`date`
 
 - 启动 HDFS：`sbin/start-dfs.sh`
